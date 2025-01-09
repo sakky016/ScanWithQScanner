@@ -11,4 +11,6 @@ jobs:
           url: https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
           destination: /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
       - name: Run download_qscanner.sh
-        run: sh /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
+        run: |
+          chmod +x /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
+          sh /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
