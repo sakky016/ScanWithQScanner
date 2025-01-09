@@ -30,7 +30,11 @@ jobs:
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
             --cache local \
             --log-level ${{ vars.LOG_LEVEL }} \
-            --poll-wait-interval 30s     
+            --poll-wait-interval 30s   
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: qualys/qscanner/data/*-Report.sarif.json            
       - name: Save QScanner cache
         id: qscanner-cache
         uses: actions/cache@v4
