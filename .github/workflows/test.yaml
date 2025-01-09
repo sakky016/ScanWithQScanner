@@ -1,6 +1,8 @@
 on:
   push:
   workflow_dispatch:
+permissions:
+  actions: read  
 jobs:
   scan_with_qscanner:
     name: Scan with QScanner
