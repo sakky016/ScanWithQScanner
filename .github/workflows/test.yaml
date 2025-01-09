@@ -34,7 +34,7 @@ jobs:
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: qualys/qscanner/data/*-Report.sarif.json            
+          sarif_file: /home/runner/qualys/qscanner/data/*-Report.sarif.json            
       - name: Save QScanner cache
         id: qscanner-cache
         uses: actions/cache@v4
