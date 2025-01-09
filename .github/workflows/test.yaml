@@ -25,13 +25,13 @@ jobs:
             --cache local \
             --log-level debug \
             --poll-wait-interval 30s     
-      - name: Save qscanner cache
+      - name: Save QScanner cache
         id: qscanner-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/qualys/qscanner
           key: qscanner-cache
-      - name: Save binary cache
+      - name: Save Binary cache
         id: binary-cache
         uses: actions/cache@v4
         with:
