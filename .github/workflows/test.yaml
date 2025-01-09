@@ -29,7 +29,7 @@ jobs:
             --pod ${{ vars.POD }} \
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
             --cache local \
-            --log-level debug \
+            --log-level ${{ vars.LOG_LEVEL }} \
             --poll-wait-interval 30s     
       - name: Save QScanner cache
         id: qscanner-cache
