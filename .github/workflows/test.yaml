@@ -7,13 +7,20 @@ jobs:
     steps:
       - name: Download QScanner
         run: |
-          curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
-          chmod +x download_qscanner.sh
-          ./download_qscanner.sh
+          curl -Lk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh -O ${{ github.workspace }}/QScannerBinary/download_qscanner.sh
+          chmod +x ${{ github.workspace }}/QScannerBinary/download_qscanner.sh
+          ./${{ github.workspace }}/QScannerBinary/download_qscanner.sh
       - name: Launch Scan
         run: |
-          ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
+          ./${{ github.workspace }}/QScannerBinary/linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
             --mode get-report \
             --pod ${{ vars.POD }} \
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
-            --poll-wait-interval 30s            
+            --log-level debug \
+            --poll-wait-interval 30s     
+      - name: Save cache
+        id: qscanner-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/qualys/qscanner
+          key: qscanner-cache
