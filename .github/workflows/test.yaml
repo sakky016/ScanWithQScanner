@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-22.04  
     steps:
       - name: Download QScanner
+        if: steps.binary-cache.outputs.cache-hit != 'true'
         run: |
           curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh 
           chmod +x download_qscanner.sh
