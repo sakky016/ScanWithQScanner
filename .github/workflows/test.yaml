@@ -11,6 +11,11 @@ jobs:
           curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh 
           chmod +x download_qscanner.sh
           ./download_qscanner.sh
+      - uses: actions/cache/restore@v4
+        id: cache
+        with:
+          path: ~/.cache/qualys/qscanner
+          key: qscanner-cache               
       - name: Launch Scan
         run: |
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
