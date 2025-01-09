@@ -7,6 +7,7 @@ jobs:
     steps:
       - name: Download QScanner
         run: |
+          mkdir -p ${{ github.workspace }}/QScannerBinary/
           curl -L https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh -o ${{ github.workspace }}/QScannerBinary/download_qscanner.sh
           chmod +x ${{ github.workspace }}/QScannerBinary/download_qscanner.sh
           ./${{ github.workspace }}/QScannerBinary/download_qscanner.sh
