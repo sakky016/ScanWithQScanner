@@ -8,13 +8,12 @@ jobs:
     steps:
       - name: Download QScanner
         run: |
-          mkdir -p ${{ github.workspace }}/QScannerBinary/
-          curl -L https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh -o /tmp/QScannerBinary/download_qscanner.sh
-          chmod +x /tmp/QScannerBinary/download_qscanner.sh
-          ./tmp/QScannerBinary/download_qscanner.sh
+          curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh 
+          chmod +x download_qscanner.sh
+          ./download_qscanner.sh
       - name: Launch Scan
         run: |
-          ./tmp/QScannerBinary/linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
+          ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
             --mode get-report \
             --pod ${{ vars.POD }} \
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
