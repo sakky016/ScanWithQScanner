@@ -5,12 +5,8 @@ jobs:
     name: Scan with QScanner
     runs-on: ubuntu-22.04  
     steps:
-      - name: Download download_qscanner.sh
-        uses: ethanjli/cached-download-action@v0.1.0
-        with:
-          url: https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
-          destination: /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
-      - name: Run download_qscanner.sh
+      - name: Download QScanner
         run: |
+          curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
           chmod +x /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
           sh /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
