@@ -22,11 +22,18 @@ jobs:
             --mode get-report \
             --pod ${{ vars.POD }} \
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
+            --cache local \
             --log-level debug \
             --poll-wait-interval 30s     
-      - name: Save cache
+      - name: Save qscanner cache
         id: qscanner-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/qualys/qscanner
           key: qscanner-cache
+      - name: Save binary cache
+        id: binary-cache
+        uses: actions/cache@v4
+        with:
+          path: linux-amd64
+          key: binary-${{ vars.QSCANNER_VERSION }}-cache
