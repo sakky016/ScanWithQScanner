@@ -1,0 +1,14 @@
+on:
+  workflow_dispatch:
+jobs:
+  scan_with_qscanner:
+    name: Scan with QScanner
+    runs-on: ubuntu-22.04  
+    steps:
+      - name: Download download_qscanner.sh
+        uses: ethanjli/cached-download-action@v0.1.0
+        with:
+          url: https://www.qualys.com/qscanner/download/v4.2.0/download_qscanner.sh
+          destination: /tmp/downloads-cache/v4.2.0/download_qscanner.sh
+      - name: Run download_qscanner.sh
+        run: sh download_qscanner.sh
