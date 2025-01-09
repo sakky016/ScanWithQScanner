@@ -6,17 +6,22 @@ jobs:
     name: Scan with QScanner
     runs-on: ubuntu-22.04  
     steps:
+      - uses: actions/cache/restore@v4
+        id: qscanner-cache-id
+        with:
+          path: ~/.cache/qualys/qscanner
+          key: qscanner-cache   
+      - uses: actions/cache/restore@v4
+        id: binary-cache-id
+        with:
+          path: linux-amd64
+          key: binary-cache             
       - name: Download QScanner
         if: steps.binary-cache.outputs.cache-hit != 'true'
         run: |
           curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh 
           chmod +x download_qscanner.sh
-          ./download_qscanner.sh
-      - uses: actions/cache/restore@v4
-        id: cache
-        with:
-          path: ~/.cache/qualys/qscanner
-          key: qscanner-cache               
+          ./download_qscanner.sh           
       - name: Launch Scan
         run: |
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
