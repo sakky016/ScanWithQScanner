@@ -15,7 +15,7 @@ jobs:
         id: binary-cache-id
         with:
           path: linux-amd64
-          key: binary-cache             
+          key: binary-${{ vars.QSCANNER_VERSION }}-cache             
       - name: Download QScanner
         if: steps.binary-cache.outputs.cache-hit != 'true'
         run: |
