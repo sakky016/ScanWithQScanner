@@ -27,7 +27,8 @@ jobs:
       - name: Launch Scan
         run: |
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
-            --mode get-report \
+            --mode evaluate-policy \
+            --tags ${{ vars.POLICY_TAGS }} \
             --pod ${{ vars.POD }} \
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
             --output-dir /tmp/QScannerOutputDir \
