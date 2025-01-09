@@ -8,5 +8,5 @@ jobs:
       - name: Download QScanner
         run: |
           curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
-          chmod +x /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
-          sh /tmp/downloads-cache/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh
+          chmod +x download_qscanner.sh
+          sh download_qscanner.sh
