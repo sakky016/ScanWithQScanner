@@ -6,6 +6,7 @@ permissions:
   contents: write
   pull-requests: write
   repository-projects: write  
+  security-events: write
 jobs:
   scan_with_qscanner:
     name: Scan with QScanner
