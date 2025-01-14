@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 permissions:
   actions: write  
+  contents: write
 jobs:
   scan_with_qscanner:
     name: Scan with QScanner
