@@ -26,7 +26,6 @@ jobs:
           ./download_qscanner.sh           
       - name: Launch Scan
         run: |
-          env
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
             --mode evaluate-policy \
             --tags ${{ vars.POLICY_TAGS }} \
