@@ -4,6 +4,8 @@ on:
 permissions:
   actions: write  
   contents: write
+  pull-requests: write
+  repository-projects: write  
 jobs:
   scan_with_qscanner:
     name: Scan with QScanner
@@ -24,7 +26,13 @@ jobs:
         run: |
           curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh 
           chmod +x download_qscanner.sh
-          ./download_qscanner.sh           
+          ./download_qscanner.sh    
+      - name: Save Binary cache
+        id: binary-cache
+        uses: actions/cache@v4
+        with:
+          path: linux-amd64
+          key: binary-${{ vars.QSCANNER_VERSION }}-cache          
       - name: Launch Scan
         run: |
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
@@ -47,9 +55,3 @@ jobs:
         with:
           path: ~/.cache/qualys/qscanner
           key: qscanner-cache
-      - name: Save Binary cache
-        id: binary-cache
-        uses: actions/cache@v4
-        with:
-          path: linux-amd64
-          key: binary-${{ vars.QSCANNER_VERSION }}-cache
