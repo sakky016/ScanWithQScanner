@@ -1,0 +1,59 @@
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  actions: write  
+  contents: write
+  pull-requests: write
+  repository-projects: write  
+  security-events: write
+jobs:
+  scan_with_qscanner:
+    name: Scan with QScanner
+    runs-on: ubuntu-22.04  
+    steps:
+      - uses: actions/cache/restore@v4
+        id: qscanner-cache-id
+        with:
+          path: /tmp/QScannerCacheDir
+          key: qscanner-cache   
+      - uses: actions/cache/restore@v4
+        id: binary-cache-id
+        with:
+          path: linux-amd64
+          key: binary-${{ vars.QSCANNER_VERSION }}-cache             
+      - name: Download QScanner
+        if: steps.binary-cache-id.outputs.cache-hit != 'true'
+        run: |
+          curl -LOk https://www.qualys.com/qscanner/download/${{ vars.QSCANNER_VERSION }}/download_qscanner.sh 
+          chmod +x download_qscanner.sh
+          ./download_qscanner.sh    
+      - name: Save Binary cache
+        id: binary-cache
+        uses: actions/cache@v4
+        with:
+          path: linux-amd64
+          key: binary-${{ vars.QSCANNER_VERSION }}-cache          
+      - name: Launch Scan
+        run: |
+          ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
+            --mode get-report \
+            --tags ${{ vars.POLICY_TAGS }} \
+            --pod ${{ vars.POD }} \
+            --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
+            --output-dir /tmp/QScannerOutputDir \
+            --cache-dir /tmp/QScannerCacheDir \
+            --cache local \
+            --log-level ${{ vars.LOG_LEVEL }} \
+            --poll-wait-interval 1m   
+          cp /tmp/QScannerOutputDir/*.sarif.json report.sarif.json
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: report.sarif.json           
+      - name: Save QScanner cache
+        id: qscanner-cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/QScannerCacheDir
+          key: qscanner-cache
