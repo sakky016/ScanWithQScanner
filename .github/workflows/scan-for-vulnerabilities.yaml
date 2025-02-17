@@ -16,6 +16,12 @@ jobs:
         with:
           path: /tmp/QScannerCacheDir  
           key: qscanner-cache
+      - name: Delete previous qscanner-cache
+        run: |
+          gh extension install actions/gh-actions-cache          
+          gh actions-cache delete qscanner-cache --confirm 
+        env:
+          GH_TOKEN: ${{ github.TOKEN }}                    
       - uses: actions/cache/restore@v4
         id: binary-cache-id
         with:
@@ -50,12 +56,6 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: report.sarif.json 
-      - name: Delete Previous qscanner-cache
-        run: |
-          gh extension install actions/gh-actions-cache          
-          gh actions-cache delete qscanner-cache --confirm 
-        env:
-          GH_TOKEN: ${{ github.TOKEN }}          
       - name: Save QScanner cache
         uses: actions/cache/save@v4
         with:
