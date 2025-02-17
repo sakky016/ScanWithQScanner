@@ -12,10 +12,13 @@ jobs:
     name: Scan with QScanner
     runs-on: ubuntu-22.04  
     steps:
+      - name: Export current date
+        run: | 
+          echo "KEY_DATE=$(date +"%Y%m%d")" >> $GITHUB_ENV             
       - uses: actions/cache/restore@v4
         with:
           path: /tmp/QScannerCacheDir  
-          key: qscanner-cache   
+          key: qscanner-cache-$KEY_DATE
       - uses: actions/cache/restore@v4
         id: binary-cache-id
         with:
@@ -51,10 +54,9 @@ jobs:
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: report.sarif.json 
+          sarif_file: report.sarif.json       
       - name: Save QScanner cache
         uses: actions/cache@v4
         with:
           path: /tmp/QScannerCacheDir
-          save-always: true
-          key: qscanner-cache
+          key: qscanner-cache-$KEY_DATE
