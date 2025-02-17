@@ -36,13 +36,14 @@ jobs:
       - name: Launch Scan
         run: |
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
-            --mode get-report \
+            --mode inventory-only \
             --pod ${{ vars.POD }} \
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
             --output-dir /tmp/QScannerOutputDir \
             --cache-dir /tmp/QScannerCacheDir \
             --cache local \
             --log-level ${{ vars.LOG_LEVEL }} \
+            --offline-scan=true \            
             --poll-wait-interval ${{ vars.POLL_WAIT_INTERVAL }}     
           cp /tmp/QScannerOutputDir/*.sarif.json report.sarif.json
       - name: Upload SARIF file
@@ -52,9 +53,9 @@ jobs:
       - name: Delete Previous qscanner-cache
         run: |
           gh extension install actions/gh-actions-cache          
-          gh-actions-cache delete qscanner-cache --confirm 
+          gh actions-cache delete qscanner-cache --confirm 
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.TOKEN }}          
       - name: Save QScanner cache
         uses: actions/cache/save@v4
         with:
