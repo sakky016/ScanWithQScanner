@@ -44,14 +44,15 @@ jobs:
             --cache local \
             --log-level ${{ vars.LOG_LEVEL }} \
             --offline-scan=true \            
-            --poll-wait-interval ${{ vars.POLL_WAIT_INTERVAL }}     
+            --poll-wait-interval ${{ vars.POLL_WAIT_INTERVAL }}               
+      - name: Save SARIF file
+        run: | 
           cp /tmp/QScannerOutputDir/*.sarif.json report.sarif.json
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: report.sarif.json 
       - name: Save QScanner cache
-        if: always()
         uses: actions/cache/save@v4
         with:
           path: /tmp/QScannerCacheDir
