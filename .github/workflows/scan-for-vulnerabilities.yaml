@@ -52,7 +52,7 @@ jobs:
           sarif_file: report.sarif.json           
       - name: Save QScanner cache
         id: qscanner-cache
-        uses: actions/cache@v4
+        uses: actions/cache/save@v4
         with:
           path: /tmp/QScannerCacheDir
           key: qscanner-cache
