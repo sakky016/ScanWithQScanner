@@ -42,8 +42,7 @@ jobs:
             --output-dir /tmp/QScannerOutputDir \
             --cache-dir /tmp/QScannerCacheDir \
             --cache local \
-            --log-level ${{ vars.LOG_LEVEL }} \
-            --offline-scan=true \            
+            --log-level ${{ vars.LOG_LEVEL }} \         
             --poll-wait-interval ${{ vars.POLL_WAIT_INTERVAL }}               
       - name: Save SARIF file
         run: | 
