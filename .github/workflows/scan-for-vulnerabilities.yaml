@@ -53,4 +53,6 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: /tmp/QScannerCacheDir
-          key: qscanner-cache
+          key: qscanner-cache-${{ github.run_id }}
+          restore-keys: |
+            qscanner-cache
