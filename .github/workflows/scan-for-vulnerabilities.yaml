@@ -51,8 +51,8 @@ jobs:
           sarif_file: report.sarif.json 
       - name: Delete Previous qscanner-cache
         run: |
-          gh extension install actions/gh-actions-cache
-          gh actions-cache delete qscanner-cache --confirm       
+          gh extension install actions/gh-actions-cache          
+          gh-actions-cache delete qscanner-cache --confirm 
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Save QScanner cache
