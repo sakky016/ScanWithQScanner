@@ -44,7 +44,7 @@ jobs:
             --cache-dir /tmp/QScannerCacheDir \
             --cache local \
             --log-level ${{ vars.LOG_LEVEL }} \
-            --poll-wait-interval 1m   
+            --poll-wait-interval ${{ vars.POLL_WAIT_INTERVAL }}     
           cp /tmp/QScannerOutputDir/*.sarif.json report.sarif.json
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
