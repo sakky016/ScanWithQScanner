@@ -21,7 +21,7 @@ jobs:
           gh extension install actions/gh-actions-cache          
           gh actions-cache delete qscanner-cache --confirm 
         env:
-          GH_TOKEN: ${{ github.TOKEN }}                    
+          GH_TOKEN: ${{ secrets.TOKEN }}                    
       - uses: actions/cache/restore@v4
         id: binary-cache-id
         with:
