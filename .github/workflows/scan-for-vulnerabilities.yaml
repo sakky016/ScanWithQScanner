@@ -45,11 +45,11 @@ jobs:
             --log-level ${{ vars.LOG_LEVEL }} \
             --offline-scan=true \            
             --poll-wait-interval ${{ vars.POLL_WAIT_INTERVAL }}     
-          cp /tmp/QScannerOutputDir/*.sarif.json report.sarif.json
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: report.sarif.json 
+          #cp /tmp/QScannerOutputDir/*.sarif.json report.sarif.json
+      #- name: Upload SARIF file
+      #  uses: github/codeql-action/upload-sarif@v3
+      #  with:
+      #    sarif_file: report.sarif.json 
       - name: Delete Previous qscanner-cache
         run: |
           gh extension install actions/gh-actions-cache          
