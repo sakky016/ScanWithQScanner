@@ -38,7 +38,7 @@ jobs:
           key: binary-${{ vars.QSCANNER_VERSION }}-cache          
       - name: Launch Scan
         run: |
-          find /tmp/QScannerOutputDir
+          find /tmp/QScannerCacheDir
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
             --mode get-report \
             --pod ${{ vars.POD }} \
