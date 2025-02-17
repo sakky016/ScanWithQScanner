@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-22.04  
     steps:
       - uses: actions/cache/restore@v4
-        id: qscanner-cache-id
         with:
           path: /tmp/QScannerCacheDir  
+          key: qscanner-cache
       - uses: actions/cache/restore@v4
         id: binary-cache-id
         with:
@@ -50,7 +50,7 @@ jobs:
         with:
           sarif_file: report.sarif.json           
       - name: Save QScanner cache
-        id: qscanner-cache
         uses: actions/cache/save@v4
         with:
           path: /tmp/QScannerCacheDir
+          key: qscanner-cache
