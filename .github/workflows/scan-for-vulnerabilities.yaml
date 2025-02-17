@@ -56,4 +56,5 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/QScannerCacheDir
+          save-always: true
           key: qscanner-cache
