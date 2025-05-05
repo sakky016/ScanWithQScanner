@@ -38,6 +38,10 @@ jobs:
           key: binary-${{ vars.QSCANNER_VERSION }}-cache          
       - name: Launch Scan
         run: |
+          echo "=================================================================================================================="
+          echo "GitHub Actions ENV:"
+          env
+          echo "=================================================================================================================="
           ./linux-amd64/qscanner image ${{ vars.IMAGE_TO_SCAN }} \
             --mode get-report \
             --pod ${{ vars.POD }} \
