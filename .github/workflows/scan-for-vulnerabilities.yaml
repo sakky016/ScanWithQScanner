@@ -44,7 +44,6 @@ jobs:
             --access-token ${{ secrets.QUALYS_ACCESS_TOKEN }} \
             --output-dir /tmp/QScannerOutputDir \
             --cache-dir /tmp/QScannerCacheDir \
-            --cache local \
             --log-level ${{ vars.LOG_LEVEL }} \
             --poll-wait-interval ${{ vars.POLL_WAIT_INTERVAL }}
       - name: Save SARIF file
